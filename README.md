@@ -1,6 +1,6 @@
 # Evolution Simulator
 ## Introduction
-I am working on building an evolution simulator from scratch using UnrealEngine.
+I am working on building an evolution simulator from scratch using pygame.
 
 ## Licence
 I am keeping this project copyrighted and not adding a licence.
