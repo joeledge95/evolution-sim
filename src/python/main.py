@@ -1,9 +1,9 @@
 import pygame
 import sys
 import random
-from src.python.entities.creature import Creature
-from src.python.entities.habitat import Habitat
-from src.python.entities.food import FoodPool
+from entities.creature import Creature
+from entities.habitat import Habitat
+from entities.food import FoodPool
 
 # Initialize pygame
 pygame.init()
