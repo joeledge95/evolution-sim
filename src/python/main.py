@@ -51,6 +51,7 @@ while True:
         # Move and Draw the creature
         creature.move()
         creature.draw(screen)
+        creature.size *= 0.9995
         # Handle food being eaten
         for food in food_pool.pool:
             if food.active and creature.check_collision(food):
