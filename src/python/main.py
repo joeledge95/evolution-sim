@@ -1,7 +1,7 @@
 import pygame
 import sys
 import random
-from entities.creature import Creature
+from entities.creature import CreaturePool
 from entities.habitat import Habitat
 from entities.food import FoodPool
 
@@ -18,8 +18,8 @@ background_color = pygame.Color('green')
 # Clock to control the frame rate
 clock = pygame.time.Clock()
 
-# Instantiate a creature
-creature = Creature(screen_width // 2, screen_height // 2, size=10, num_legs=5, colour='red')
+# Instantiate creature pool
+creature_pool = CreaturePool(2, screen_width, screen_height)
 
 # Instantiate a habitat
 habitat = Habitat(screen_width // 2, screen_height // 2, size=60)
@@ -38,24 +38,27 @@ while True:
     # Fill the background, and draw the ball
     screen.fill(background_color)
 
-    # Change direction if hit side
-    if creature.x > screen_width or creature.x < 0:
-        creature.speed_x *= -1
-    if creature.y > screen_height or creature.y < 0:
-        creature.speed_y *= -1
-
-    # Move and Draw the creature
-    creature.move()
-    creature.draw(screen)
-
     # Draw habitat
     habitat.draw(screen)
 
-    # Draw food and handle food being eaten
+    # All creature interractions
+    for creature in creature_pool.pool:
+        # Change direction if hit side
+        if creature.x > screen_width or creature.x < 0:
+            creature.speed_x *= -1
+        if creature.y > screen_height or creature.y < 0:
+            creature.speed_y *= -1
+        # Move and Draw the creature
+        creature.move()
+        creature.draw(screen)
+        # Handle food being eaten
+        for food in food_pool.pool:
+            if food.active and creature.check_collision(food):
+                food.deactivate()
+                creature.size += food.size
+
+    # Draw food
     for food in food_pool.pool:
-        if food.active and creature.check_collision(food):
-            food.deactivate()
-            creature.size += food.size
         food.draw(screen)
 
     # Logic to activate/deactivate food

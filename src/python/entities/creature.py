@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 
 class Creature:
@@ -31,3 +32,13 @@ class Creature:
     def check_collision(self, food):
         distance = math.hypot(self.x - food.x, self.y - food.y)
         return distance < self.size + food.size
+
+# Creature pool
+class CreaturePool:
+    def __init__(self, capacity, screen_width, screen_height):
+        self.pool = [Creature(random.randint(0, screen_width), random.randint(0, screen_height), size=10, num_legs=5, colour='red')
+                     for _ in range(capacity)]
+
+    def draw(self, screen):
+        for creature in self.pool:
+            creature.draw(screen)
