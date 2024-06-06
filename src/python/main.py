@@ -51,13 +51,18 @@ while True:
     # Draw habitat
     habitat.draw(screen)
 
-    # Draw food
-    # Example logic to activate/deactivate food
+    # Draw food and handle food being eaten
+    for food in food_pool.pool:
+        if food.active and creature.check_collision(food):
+            food.deactivate()
+            creature.size += 10  # TODO maybe set relative to size of food
+        food.draw(screen)
+
+    # Logic to activate/deactivate food
     if random.randint(0, 100) > 95:  # Random chance to activate a food
         food_pool.activate_food(screen_width, screen_height)
     if random.randint(0, 100) > 98:  # Random chance to deactivate a food
         food_pool.deactivate_food()
-    food_pool.draw(screen)
 
     # Update the display
     pygame.display.flip()
