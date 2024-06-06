@@ -55,7 +55,7 @@ while True:
     for food in food_pool.pool:
         if food.active and creature.check_collision(food):
             food.deactivate()
-            creature.size += 10  # TODO maybe set relative to size of food
+            creature.size += food.size
         food.draw(screen)
 
     # Logic to activate/deactivate food

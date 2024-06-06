@@ -7,6 +7,7 @@ class Food:
         self.x = 0
         self.y = 0
         self.active = False
+        self.size = 5
 
     def activate(self):
         self.active = True
@@ -16,7 +17,7 @@ class Food:
 
     def draw(self, screen):
         if self.active:
-            pygame.draw.circle(screen, pygame.Color('yellow'), (self.x, self.y), 5)
+            pygame.draw.circle(screen, pygame.Color('yellow'), (self.x, self.y), self.size)
 
 
 # Food Pool

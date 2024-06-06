@@ -30,4 +30,4 @@ class Creature:
 
     def check_collision(self, food):
         distance = math.hypot(self.x - food.x, self.y - food.y)
-        return distance < self.size
+        return distance < self.size + food.size
