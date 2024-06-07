@@ -1,10 +1,12 @@
 import pygame
 import math
 import random
+from entities.bodyparts.body import BodySquarePool
 
 
 class Creature:
     def __init__(self, x, y, size, num_legs, colour):
+        self.body_square_pool = BodySquarePool(20)  # NOTE 20 max set
         self.active = False
         self.x = x
         self.y = y
@@ -13,18 +15,15 @@ class Creature:
         self.speed_x = self.num_legs
         self.speed_y = self.num_legs
         self.colour = colour
+        self.base_structure = self.body_square_pool.get_unused_body_square()
+        self.base_structure.add_connection('b', self.body_square_pool.get_unused_body_square())
+        self.base_structure.add_connection('t', self.body_square_pool.get_unused_body_square())
+        self.base_structure.add_connection('r', self.body_square_pool.get_unused_body_square())
+        self.base_structure.add_connection('l', self.body_square_pool.get_unused_body_square())
 
     def draw(self, screen):
         # Draw the creature's body
-        pygame.draw.circle(screen, self.colour, (self.x, self.y), self.size)
-        # Draw the creature's legs
-        leg_length = 20  # Increased leg length for visibility
-        for i in range(self.num_legs):
-            angle_degrees = (360 / self.num_legs) * i
-            angle_radians = math.radians(angle_degrees)  # Convert degrees to radians
-            leg_x = int(self.x + math.cos(angle_radians) * (self.size + leg_length))
-            leg_y = int(self.y + math.sin(angle_radians) * (self.size + leg_length))
-            pygame.draw.line(screen, self.colour, (self.x, self.y), (leg_x, leg_y), 2)
+        self.base_structure.draw(screen, 'red', self.x, self.y, self.size)
         return
 
     def activate(self):

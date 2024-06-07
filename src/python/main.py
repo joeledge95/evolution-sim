@@ -5,11 +5,14 @@ from entities.creature import CreaturePool
 from entities.habitat import Habitat
 from entities.food import FoodPool
 
+# Parameters
+screen_width, screen_height = 640, 480
+max_creatures = 20
+
 # Initialize pygame
 pygame.init()
 
 # Set up the display
-screen_width, screen_height = 640, 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Colors
@@ -19,7 +22,6 @@ background_color = pygame.Color('green')
 clock = pygame.time.Clock()
 
 # Instantiate creature pool and activate first 2 creatures
-max_creatures = 20
 creature_pool = CreaturePool(max_creatures, screen_width, screen_height)
 creature_pool.pool[0].activate()
 creature_pool.pool[1].activate()
