@@ -18,8 +18,11 @@ background_color = pygame.Color('green')
 # Clock to control the frame rate
 clock = pygame.time.Clock()
 
-# Instantiate creature pool
-creature_pool = CreaturePool(2, screen_width, screen_height)
+# Instantiate creature pool and activate first 2 creatures
+max_creatures = 20
+creature_pool = CreaturePool(max_creatures, screen_width, screen_height)
+creature_pool.pool[0].activate()
+creature_pool.pool[1].activate()
 
 # Instantiate a habitat
 habitat = Habitat(screen_width // 2, screen_height // 2, size=60)
@@ -43,6 +46,8 @@ while True:
 
     # All creature interractions
     for creature in creature_pool.pool:
+        if not creature.active:
+            continue
         # Change direction if hit side
         if creature.x > screen_width or creature.x < 0:
             creature.speed_x *= -1
